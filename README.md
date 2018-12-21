@@ -1,23 +1,96 @@
 # RBE2001_template
 Template code for the RBE 2001 final project
 
+# Hardware
+
+See: https://github.com/WPIRoboticsEngineering/RobotInterfaceBoard
+
+# Development Computer Options  
+
+## Option 1) A lab machine
+
+Availible to all students. 
+
+Note that Eclipse *should be installed by you* in your My Documents folder.  Each install of eclipse should be personal and not shared.
+
+Note that the driver is installed on these computers
+
+Note that Arduino with the ESP32 toolchain is already installed in C:\WPIAPPS\arduino-1.8.3\
+
+##  Option 2) Personal Machine
+
+### Supported for this class
+
+Windows 10 Pro 
+
+A user name with no " " in the file path. Generally it is safe to use your WPI username as the username on your computer.
+
+Fresh install is genearlly reccomended every 6 months. Install disk are availible to students as a resource from the WPI Helpdesk.
+
+OneDrive and Dropbox conflict with the install process and must be fully removed from the user file paths. 
+
+Eclipse should be installed in C:\eclipse
+
+Arduino should be installed in C:\RBE-arduino
+
+After installation of both, ensure your user has write access to the directories. 
+
+### Unsupported OS's
+
+MacOS is unsupported and only intermittantly working. If you have MacOS please install a fresh copy of Windows 10. 
+
+Ubuntu 16.04 is unsupported but works well.
+
+Ubuntu 18.04 is unsupported but works well with some creative directions following. This will take more effort and would require pre-existing proficency in Linux. If you have 18.04 please install Windows 10 or 16.04. 
+
+### How to get Windows 10 as a Student for free from WPI
+
+To get your student copy of Windows go here: 
+
+https://onlinestore.wpi.edu/
+
+Select windows 10, and download it. For students you get one copy and it is free. 
+
+You can follow this tutorial to install it:
+
+https://www.youtube.com/watch?v=aTVOTY93XXU
+
 # Arduino and the ESP32 Toolchain
 
-## Personal Computer install Windows  
+## Driver
+
+This is installed on the lab machines already. 
+
+After extracting the Zip file, install the 64 bit version of the driver. 
+
+https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
+
+
+## Personal Computer install Windows  (Supported)
 download:
 
-http://users.wpi.edu/~glipin/.uploads/RBE-arduino.zip
+https://github.com/WPIRoboticsEngineering/RBE2002_template/releases/download/0.0.1/RBE-arduino110718.zip
 
 And extract it somewhare on your computer. Run Arduino in the extracted folder.
 
-## Personal Computer install Linux / Mac 
+## Personal Computer install Linux / Mac  (Unsupported)
 
-see: https://github.com/espressif/arduino-esp32#installation-instructions
+Linux Instructions (16.04 works well, 18.04 is a bit fiddely and needs extra steps but can be made to work):
 
-## Arduino Libraries
+https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/debian_ubuntu.md
+
+
+Mac instructions (NOT SUPPORTED BY THE LAB, HAS LOTS OF PROBLEMS):
+
+https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/mac.md
+
+
+# Arduino Libraries
+## HOWTO
+For detailed instructions on how libraries work, see: https://www.arduino.cc/en/Guide/Libraries
 
 Open Arduino and select Sketch->Libraries -> Manage Libraries
-
+## Which Libraries
 Search for and install:
 
 ESP32Servo
@@ -30,33 +103,33 @@ EspWii
 
 WiiChuck
 
+# Add WIFI network passwords (Home use only)
+
+In AK120d and FI103, the passwords will be pre-loaded into your modules. For any other network, including your home network to WiFI tethering through your phone, you will need to set the password.
+
+Open Arduino and open the Esp32SimplePacketComs->WifiManagerExample
+
+Program that example and open the serial consle. In the send txt box, type the SSID (Case sensitive!) and hit send. It will prompt for the password like this:
+
+```
+New ssid: hephaestus
+New password:
+```
+
+Type the password and it send again. If the credentials are correct you will see it get an IP address and write the passowrd to non-volitile memory:
+
+```
+WiFi connected! IP address: 192.168.43.127
+Writing new ssid hephaestus
+Writing new pass ****
+```
+
 # Set up your project
 
-## Create your private repository (Once per term per team)
+Your privete Repository has been created for you here: https://github.com/RBE200x-lab
 
-In the browser, click the "+" button next to your user Icon in the upper right corner of any github page. 
+You and your team members should find your repository made with the template code in there. 
 
-Select Import repository. 
-
-Use the URL:
-```
-https://github.com/WPIRoboticsEngineering/RBE2001_template
-```
-
-BE SURE TO SELECT PRIVATE! 
-
-If private is not an option, follow these instructions: https://help.github.com/articles/applying-for-a-student-developer-pack/
-
-
-Set the name during the import step as "RBE2001". **Do Not put anything different from that exact string**, Arduino uses directory names to find header files, and this project needs the name to be exactly "RBE2001". Change only if you and your team have all had exprence with Arduino Library develoment.  
-
-## Add your team mates as collaborators
-
-In your new repository, under 
-```
-Settings -> Collaborators
-```
-Search and add your team mates. 
 
 # Develop Code for your project
 
@@ -78,7 +151,7 @@ Install "The Arduino Eclipse IDE named Sloeber" and restart eclipse.
 
 Set the workspace to Arduino mode. In the upper right hand corner there is a button with a little yellow plus sign, and when you hover over it is says "pen Perspective". Click that button. Select Arduino. 
 
-Open the Arduino Preferences:
+#### Open the Arduino Preferences:
 ```
 Arduino -> Preferences
 ```
@@ -162,16 +235,22 @@ When you make a change to any line of code, you should commit your changes. If y
 
 Git Repositories
 
-Expand it and right click on Working Tree and select Add to Index. This loads your changes into the git module.
+Expand it and right click on 
+```
+Working Tree->Add to Index
+```
+This loads your changes into the git module.
 
-Finally right click on RBE2001[master]->Commit
-
+Finally right click on 
+```
+RBE2001[master]->Commit
+```
 Be sure to set the "Author" and "Committer" fields sould both contain the same data like this:
 ```
 Kevin Harrington <harrington@wpi.edu>
 ```
 
-Messages should consist of 60 charrectors of short description describing what changed, 2 new lines, then a t least one full sentance describing the justification for the change. If you have more than one fime, only commit one at a time. using the "+" and "-" buttons in the Git Staging section. 
+Messages should consist of 60 charrectors of short description describing what changed, 2 new lines, then a t least one full sentance describing the justification for the change. If you have more than one file, only commit one at a time. using the "+" and "-" buttons in the Git Staging section. 
 
 When you have chages to share with your team, first Right click on the repository and select "Pull". Merge any changes your team mates made and published to upstream. Then commit the merge (or commit nothing if the merge was clean) and push your changes to the upstream server.
 
@@ -187,6 +266,16 @@ Your code for your robot is now set up as what Arduino calls a "Library". Librar
 
 Student code lives entirely in the "RBE2001" folder under libraries in eclipse. You should modify only code in that directory. 
 
+## Code Theory and High-level description
+
+At the top of the code we have an instance of the MyRobot() object called robotPointer. This is the object through which all of your code should flow.
+
+Next the set of 5 PacketEvents are added to the dispatcher. Each PacketEvent are stored in the dispatcher, and when an approprate packet is recieved, the event function is called on the approrpate PacketEvent. The dispatcher is called by loopServer() each iteration of the main loop, and at that time the stack is checked for new packets from the Field Controller application. 
+
+A copy of robotPointer is provided to each of the PacketEvents. When you want to read from or write to your robot from the event() function of a given PacketEvent, you use the robotPointer class variable provided in the sample code. The robotPointer is set in the constructor in each PacketEvent. 
+
+
+
 ## .h and .cpp files
 
 Header files, ending in .h, contain function definitions. Executable code nd memory allocations do not belong in here. Class definitions and function definitions do belong in here.
@@ -195,7 +284,7 @@ Source files, ending in .cpp, contain executable code. This is code that will ex
 
 Naming conventions insist that the .h and .cpp files have the same base name, and that name match the name of the class defined inside. 
 
-SimplePacketComs library is the core communication library to pass data from the Field Controller application and Esp32. Data is passed as a call and response from the application to the Esp32 and back. The call comes in as a UDP packet on port 1865. The response goes back to the host as a responding UDP packet. The first 4 bytes of a command contain an integer representing the command ID. THe next 60 bytes are data. Responses have the same command ID bytes, and data comign from the ESP32 back to the Application.
+[SimplePacketComs library](https://github.com/madhephaestus/SimplePacketComs/blob/master/README.md) is the core communication library to pass data from the Field Controller application and Esp32. Data is passed as a call and response from the application to the Esp32 and back. The call comes in as a UDP packet on port 1865. The response goes back to the host as a responding UDP packet. The first 4 bytes of a command contain an integer representing the command ID. THe next 60 bytes are data. Responses have the same command ID bytes, and data comign from the ESP32 back to the Application.
 
 SimplePacketComs library is initialized with: 
 
@@ -216,7 +305,7 @@ loopServer();
 ```
 ## DO Change
 
-MyRobot is the main class that defines your robot. All the code associated with the robot belongs in that class. The name of your robot is defined in this class. ALl memory used by your robot should be declared in the MyRobot class definition, and all robot methods belong in the MyRObot class.
+MyRobot is the main class that defines your robot. All the code associated with the robot belongs in that class. The name of your robot is defined in this class. All memory used by your robot should be declared in the MyRobot class definition, and all robot methods belong in the MyRobot class.
 
 Commands are single function classes that represent one command that comes in from the control application. Each command has a function called 
 ```
@@ -228,6 +317,20 @@ that is called by the SimplePacketComs library when that command is recived from
 ## DO NOT Change
 
 The .ino file, any library besides RBE2001 or sloeber.ino.cpp. 
+
+# 2001 control application
+The application to control your robot over the WIFi is located here:
+
+https://github.com/WPIRoboticsEngineering/RBE2001_template/releases
+
+To use it, download 2001FieldController.jar and right click and run as Java application. 
+
+You can also run it from the command line from the windows terminal:
+
+```
+javaw.exe -jar 2001FieldController.jar
+```
+
 
 # 2001 Final Project Commands
 
@@ -257,15 +360,17 @@ Request the status of the robot. The byte value represents the robot state.
 |--- |--- |
 | Ready for new task | 0 |
 | Heading to pickup | 1 |
-| Picking up | 2 |
-| Heading to Dropoff | 3 |
-| Dropping off | 4 |
-| Heading to safe zone| 5 |
-| Fault: failed pickup| 6 |
-| Fault: failed dropoff| 7 |
-| Fault: excessive load| 8 |
-| Fault: obstructed path| 9 |
-| Fault: E Stop pressed | 10 |
+| Waiting for approval to pickup | 2 |
+| Picking up | 3 |
+| Heading to Dropoff | 4 |
+| Waiting for approval to Dropoff | 5 |
+| Dropping off | 6 |
+| Heading to safe zone| 7 |
+| Fault: failed pickup| 8 |(Bonus Points)
+| Fault: failed dropoff| 9 |(Bonus Points)
+| Fault: excessive load| 10 |(Bonus Points)
+| Fault: obstructed path| 11 |(Bonus Points)
+| Fault: E Stop pressed | 12 |
 
 ### Clear Faults 
 
@@ -277,7 +382,17 @@ Request the status of the robot. The byte value represents the robot state.
 | Contents upstream |1871 | ---|
 
 Clear all faults on the robot. No data is transmitted, but the state of the robot should be effected. The robot should bring it's self online. 
+### Approve 
 
+| |ID | byte |
+|--- |--- | --- |
+| downstream Bytes |4 | 0 |
+| Contents downstream |1994 | --- |
+| upstream Bytes |4 | 0 |
+| Contents upstream |1994 | ---|
+
+When the robot is in "Waiting for approval to pickup" state, this command is issued to advance the state machine. 
+ 
 ### Pick Order
 
 | |ID | float |float |float |
@@ -295,26 +410,5 @@ Clear all faults on the robot. No data is transmitted, but the state of the robo
 
 An order is placed with the robot. The first 3 values are the pickup material, followed by the drop off angle and the drop off position.
 
-### Get Location 
-| |ID | float |float |float |float |float |float |float |float |
-|--- |--- | --- |--- | --- |--- | --- | --- |--- | --- | 
-| downstream Bytes |4 | 0 |
-| Contents downstream |1994 | --- |
-| upstream Bytes |4 | 4 | 4 | 4 | 4 | 4 | 4 |4 | 4 |
-| Contents upstream |1994 | X Location | Y Location | Z Location | azimuth | elevation | tilt | bounding cylinder radius | bounding cylinder height | 
 
-Request for the position and orentation of the robot. Location is in MM from the loading point in location 0 to the center bottom of the bounding cylinder of the robot. The size of the robot is reported in MM measured in positive values from center bottom of the bounding cylinder that envelops the robot. The center is defined as the turning center of the robot. The radius is the distance to the furthest point on the robot from the turning center. Maximum radius is 100mm. Direction of travil is +X in the robots coordinate frame.
 
-### Direct Drive
-| |ID | float |float |float |float |float |float |float |float |
-|--- |--- | --- |--- | --- |--- | --- | --- |--- |--- |
-| downstream Bytes |4 | 4 | 4 | 4 | 4 | 4 | 4 |4 |4 |
-| Contents downstream |1786  | delta X Location | delta Y Location |delta  Z Location | delta azimuth | delta elevation | delta tilt | # Miliseconds this update should take | Session ID|
-| upstream Bytes |4 | 4 |
-| Contents upstream |1786  | value from 0-1 to indicate progress on current session  |
-
-This is a command to drive a robot directly. The values represent a relative motion from current location. +X is forward for the robot.Angle values are in degrees and translation values are in Milimeters.  Azimuth values range from -180 to 180 with 0 along the robots X dimention. Elevation values are rotation values from -90 to 90 about the Y dimention with 0 being along the x dimenttion. Tilt values are rotations from -180 to 180 about the X dimention with 0 being aligned with the X-Y plane. 
-
-The session ID is a random integer from 0 - 100000 indicating the current drive command. It will change when the target is updateted. It is used to differentiate between new commands. 
-
-The command should return the current progress on the current command ID. 
